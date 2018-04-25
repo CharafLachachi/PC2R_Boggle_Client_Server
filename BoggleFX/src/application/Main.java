@@ -1,6 +1,7 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +20,10 @@ public class Main extends Application {
 			Scene scene = new Scene(root,1024,768);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setOnCloseRequest(e->{
+				controller.logOut(new ActionEvent());
+				primaryStage.close();
+			});
 			primaryStage.setResizable(false);
 			primaryStage.show();
 			

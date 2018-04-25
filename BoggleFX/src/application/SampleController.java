@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,7 +116,7 @@ public class SampleController implements Observer{
 	public void init() {
 		try {
 			this.socket = new Socket("127.0.0.1", 2019);
-			//this.socket = new Socket("132.227.112.132", 2016);
+			//this.socket = new Socket("132.227.112.132", 2020);
 			letters = new char[4][4];
 			Platform.runLater(() -> valideWord.setItems(items));
 			Platform.runLater(() -> connectedPlayers.setItems(players));
@@ -125,7 +124,7 @@ public class SampleController implements Observer{
 			userColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("name"));
 			scoreColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("score"));
 			Platform.runLater(() -> scoreTable.setItems(scores));
-			myTimer = new MyTimer(3, this);
+			myTimer = new MyTimer(1, this);
 			solver = new BoggleSolver();
 
 		} catch (IOException e) {
@@ -142,7 +141,7 @@ public class SampleController implements Observer{
 		client.start();
 		traitementReponse = new TraitementReponse(client.getReader(), this);
 		traitementRequetes = new TraitementRequetes(client.getWriter());
-		new Thread(() -> traitementReponse.receive()).start();
+		traitementReponse.start();
 
 	}
 
@@ -182,6 +181,9 @@ public class SampleController implements Observer{
 
 	public void receiveTourScore(String tour, List<String> users, List<String> scores) {
 		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).equals(client.getPseudo().toUpperCase())) {
+				client.setScore(scores.get(i));
+			}
 			Score score = new Score(tour, users.get(i), scores.get(i));
 			this.scores.add(score);
 		}
@@ -194,10 +196,14 @@ public class SampleController implements Observer{
 	public void boggleClickButton(ActionEvent e) {
 		Button btn = ((Button) e.getSource());
 		String cell = btn.getText();
+		String cellId = btn.getId();
 		btn.setStyle("-fx-background-color:#707070,linear-gradient(#fcfcfc, #f3f3f3),linear-gradient(#f2f2f2 0%, #ebebeb 49%, #dddddd 50%, #cfcfcf 100%);-fx-background-insets: 0,1,2;-fx-background-radius: 3,2,1;-fx-padding: 3 30 3 30;-fx-text-fill: black; -fx-font-size: 14px; ");
-	
-		word += cell;
-		trajectoire += btn.getId();
+		
+		if (!trajectoire.contains(cellId)) {
+			word += cell;
+			trajectoire += cellId;
+		}
+		
 
 	}
 
@@ -211,6 +217,8 @@ public class SampleController implements Observer{
 
 	public void submitBoggleWord(ActionEvent e) {
 		traitementRequetes.sendWord(word + "/" + trajectoire);
+		System.err.println(word);
+		System.err.println(trajectoire);
 		trajectoire = "";
 		word = "";
 		resetButtonStyle();
@@ -229,6 +237,8 @@ public class SampleController implements Observer{
 	public void logOut(ActionEvent e) {
 		String req = new ClientRequest(CMDRequestEnum.SORT,Arrays.asList(this.client.getPseudo())).writeString();
 		this.traitementRequetes.sendToServer(req);
+		traitementReponse.interrupt();
+		
 	}
 	
 	public void tricher(ActionEvent e) {

@@ -19,14 +19,17 @@ public class BoggleSolver {
 			String word;
 			while ((word = br.readLine()) != null)
 				dictionary.add(word.toUpperCase());
+			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		solutions = new ArrayList<>();
+		
 	}
 	public void game(char board[][]) {
-
+		
 		boolean visited[][] = new boolean[board.length][board[0].length];
+		solutions.clear();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				StringBuffer buffer = new StringBuffer();

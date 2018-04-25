@@ -120,9 +120,9 @@
                   <Button fx:id="tricheBtn" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#tricher" prefHeight="31.0" prefWidth="143.0" text="Proposition" />
                   <Label fx:id="tricheText" alignment="CENTER" layoutX="183.0" layoutY="67.0" prefHeight="25.0" prefWidth="199.0" textAlignment="CENTER" />
                   
-                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="100.0" prefHeight="45.0" prefWidth="199.0" text="Timer" textAlignment="CENTER" textFill="#18bcdd">
+                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="100.0" prefHeight="45.0" prefWidth="199.0" text="Timer" textAlignment="CENTER" textFill="#16bcdd">
                      <font>
-                        <Font name="System Bold" size="30.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>

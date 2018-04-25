@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.application.Platform;
 
-public class TraitementReponse {
+public class TraitementReponse extends Thread{
 	private BufferedReader inchan;
 	private SampleController gui;
 
@@ -15,21 +15,27 @@ public class TraitementReponse {
 		this.inchan = inchan;
 		this.gui = gui;
 	}
-
+ 
+	@Override
+	public void run() {
+		super.run();
+		while(!this.isInterrupted())
+		receive();
+	}
+	
 	public void receive() {
 		String ret;
 		try {
-			while (true) {
 				ret = inchan.readLine();
 				System.out.println("S -> C : " + ret);
 				String cmd = ret.split("/")[0];
 				String[] args = ret.split("/");
 				cmd = cmd.trim();
 				if (cmd.equals("BIENVENUE"))
-					System.out.println("j'ai reçu un bienvenue");
+					System.out.println("j'ai reï¿½u un bienvenue");
 				else if (cmd.equals("SESSION"))
 					System.err.println();
-				else if (cmd.equals("TOUR")) {
+				else if (cmd.equals("TOUR") && args[1]!=null) {
 					Platform.runLater(() -> gui.setLetters(args[1]));
 				} else if (cmd.equals("CONNECTE")) {
 					Platform.runLater(() ->gui.addConnectedPlayer(args[1]));
@@ -57,7 +63,6 @@ public class TraitementReponse {
 					Platform.runLater(()->gui.addValideWord(args[1]));
 				}
 
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

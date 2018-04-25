@@ -46,7 +46,7 @@ let fill_cell () =
   
   cell_list := !cell_list@[creer_cell "C1" "B1" "C2" "D1" "" "B2" "D2" "" ""];
   cell_list := !cell_list@[creer_cell "C2" "B2" "C3" "D2" "C1" "B3" "D3" "D1" "B1"];
-  cell_list := !cell_list@[creer_cell "C3" "B3" "C4" "D2" "C2" "B4" "D4" "D2" "B2"];
+  cell_list := !cell_list@[creer_cell "C3" "B3" "C4" "D3" "C2" "B4" "D4" "D2" "B2"];
   cell_list := !cell_list@[creer_cell "C4" "B4" "" "D4" "C3" "" "" "D3" "B3"];
 
   cell_list := !cell_list@[creer_cell "D1" "C1" "D2" "" "" "C2" "" "" ""];
@@ -307,6 +307,16 @@ let invalide (word,raison) =
   "MINVALIDE/"^word^"/"^raison^"\n"
 let finreflexion () =
   "RFIN/\n"
+let connected_players () =
+	 Mutex.lock mutex_joueurL;
+	 let rec create l=
+    match l with
+      [] -> ""
+    | h::t -> "/"^(String.trim h.nom)^(create t)
+  in
+  let x = create !joueur_liste in
+	Mutex.unlock mutex_joueurL;
+	"CONNEDTEDPLAYERS"^x^"\n"
     
 let vainqueur t =
    let rec score l=
@@ -371,7 +381,7 @@ and timeout_reflexion _ =
 	  (*TODO generer la grille*)
 	  begin
 	  ignore(Sys.signal Sys.sigalrm (Sys.Signal_handle lock_reflexion));
-	  ignore(Unix.setitimer Unix.ITIMER_REAL {it_interval = 0.0; it_value = 2.0 })
+	  ignore(Unix.setitimer Unix.ITIMER_REAL {it_interval = 0.0; it_value = 5.0 })
 	  end
 	else
 	  begin
@@ -392,7 +402,7 @@ and begin_reflexion () =
   
   ignore(Sys.signal Sys.sigalrm (Sys.Signal_handle timeout_reflexion));
   (*REFLEXION 120 S*)
-  ignore(Unix.setitimer Unix.ITIMER_REAL {it_interval = 0.0; it_value = 300.0});
+  ignore(Unix.setitimer Unix.ITIMER_REAL {it_interval = 0.0; it_value = 60.0});
 
 and lock_reflexion _ = 
   Mutex.lock mutex_joueurL;
@@ -445,7 +455,11 @@ let traitement_connecte (player:joueur) =
 			     print_endline "phase en cours";
 			     player.playing <- true;
   			     output_string player.outchan (tour !tr );
-  			     flush player.outchan
+  			     flush player.outchan;
+							let x = connected_players () in
+							print_endline x;
+						 output_string player.outchan (x);
+  			     flush player.outchan;
   			   end else ();
      Mutex.unlock mutex_phase;
      Mutex.unlock mutex_joueurL;;
