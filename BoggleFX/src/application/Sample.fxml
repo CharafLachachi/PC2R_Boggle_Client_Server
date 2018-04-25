@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <left>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="568.0" prefWidth="212.0" BorderPane.alignment="CENTER">
         <items>
@@ -67,11 +67,11 @@
          <children>
             <ButtonBar layoutX="830.0" layoutY="146.0" prefHeight="40.0" prefWidth="117.0">
               <buttons>
-                <Button fx:id="login" mnemonicParsing="false" text="LogIn" onAction="#logIn"/>
-                  <Button fx:id="logout" mnemonicParsing="false" text="LogOut" onAction="#logOut" />
+                <Button fx:id="login" mnemonicParsing="false" onAction="#logIn" text="LogIn" />
+                  <Button fx:id="logout" mnemonicParsing="false" onAction="#logOut" text="LogOut" />
               </buttons>
             </ButtonBar>
-            <TextField fx:id="username"  layoutX="700.0" layoutY="153.0"  prefHeight="25.0" prefWidth="150.0" promptText="Your username" ></TextField>
+            <TextField fx:id="username" layoutX="700.0" layoutY="152.0" prefHeight="25.0" prefWidth="150.0" promptText="Your username" />
          </children></Pane>
    </bottom>
    <center>
@@ -117,10 +117,10 @@
                <children>
                   <Button fx:id="submitWord" layoutX="239.0" layoutY="14.0" mnemonicParsing="false" onAction="#submitBoggleWord" prefHeight="31.0" prefWidth="143.0" text="Submit Word" />
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#newWordReset" prefHeight="31.0" prefWidth="143.0" text="New Word" />
-                  <Button fx:id="tricheBtn" layoutX="150" layoutY="30.0" mnemonicParsing="false" onAction="#tricher" prefHeight="31.0" prefWidth="143.0" text="Proposition" />
-                  <Label fx:id="tricheText" alignment="CENTER" layoutX="99.0" layoutY="72.0" prefHeight="25.0" prefWidth="199.0" text="Label" textAlignment="CENTER" />
+                  <Button fx:id="tricheBtn" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#tricher" prefHeight="31.0" prefWidth="143.0" text="Proposition" />
+                  <Label fx:id="tricheText" alignment="CENTER" layoutX="183.0" layoutY="67.0" prefHeight="25.0" prefWidth="199.0" textAlignment="CENTER" />
                   
-                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="90.0" prefHeight="45.0" prefWidth="199.0" text="Label" textAlignment="CENTER" textFill="#18bcdd">
+                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="100.0" prefHeight="45.0" prefWidth="199.0" text="Timer" textAlignment="CENTER" textFill="#18bcdd">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
