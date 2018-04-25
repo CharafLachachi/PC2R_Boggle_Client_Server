@@ -1,0 +1,7 @@
+.
+Server
+bin
+bin/application
+src
+src/application
+/usr/lib/ocaml

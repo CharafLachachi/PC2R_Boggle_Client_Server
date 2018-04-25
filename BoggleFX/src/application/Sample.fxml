@@ -117,7 +117,10 @@
                <children>
                   <Button fx:id="submitWord" layoutX="239.0" layoutY="14.0" mnemonicParsing="false" onAction="#submitBoggleWord" prefHeight="31.0" prefWidth="143.0" text="Submit Word" />
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#newWordReset" prefHeight="31.0" prefWidth="143.0" text="New Word" />
-                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="72.0" prefHeight="45.0" prefWidth="199.0" text="Label" textAlignment="CENTER" textFill="#18bcdd">
+                  <Button fx:id="tricheBtn" layoutX="150" layoutY="30.0" mnemonicParsing="false" onAction="#tricher" prefHeight="31.0" prefWidth="143.0" text="Proposition" />
+                  <Label fx:id="tricheText" alignment="CENTER" layoutX="99.0" layoutY="72.0" prefHeight="25.0" prefWidth="199.0" text="Label" textAlignment="CENTER" />
+                  
+                  <Label fx:id="timer" alignment="CENTER" layoutX="99.0" layoutY="90.0" prefHeight="45.0" prefWidth="199.0" text="Label" textAlignment="CENTER" textFill="#18bcdd">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>

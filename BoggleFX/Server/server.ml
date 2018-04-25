@@ -2,6 +2,7 @@
 (*ocamlc -o serv.exe -thread -custom unix.cma threads.cma -cclib -lthreads -cclib -lunix str.cma server.ml*)
 (*Variable Globales*)
 let tr = ref "";;
+let tirage_matrix = ref (Array.make_matrix 4 4 "") ;;
 let dictionnaire = ref [] ;;
 let tourN = ref 2;;
   
@@ -188,7 +189,6 @@ let verify_trajectoire word =
   let i = ref 2 in
   while  !i < (String.length word) do
     begin
-      print_endline (string_of_int (!i));
       let pre_cell = ref (String.sub word ((!i)-2) 2) in
       let curr_cell = ref  (String.sub word !i 2) in
       print_endline("CURRENT "^(!curr_cell));
@@ -223,8 +223,30 @@ let verify_trajectoire word =
   done;
   res
   
-  (*let verify_trajectoire_word (trajectoire,word) =
-    let res = ref true in*)
+ (*trouvé une lettre selon une case dans une matrice *)
+let word_in_case case tab = 
+  let lettre =  match case.[0] with
+    'A' -> tab.(0).((int_of_string (String.make 1 case.[1])) - 1)
+    | 'B' -> tab.(1).((int_of_string (String.make 1 case.[1])) - 1)
+    | 'C' -> tab.(2).((int_of_string (String.make 1 case.[1])) - 1)
+    | 'D' -> tab.(3).((int_of_string (String.make 1 case.[1])) - 1)
+    in
+		
+  lettre;;
+
+
+(*pour trouver un mot selon sa trajctoire*)
+let find_word_of_trajectoire (traj,tab) = 
+  let i = ref 0 and mot = ref "" in
+  if (String.length traj) mod 2 = 0 then  
+  begin
+     while (!i+2) <= String.length traj do
+        mot := !mot ^ (word_in_case (String.sub traj !i 2) tab);
+        i := !i + 2
+      done
+  end;
+    !mot;;
+		
 
 
 
@@ -363,7 +385,8 @@ and timeout_reflexion _ =
 and begin_reflexion () = 
   incr tourNum;
   print_endline "BEGIN REFLEXION";
-  tr := array_to_string (des ());
+	tirage_matrix := des () ;
+  tr := array_to_string (!tirage_matrix);
   envoie_tirage !tr;
 
   
@@ -511,35 +534,44 @@ let boucle_joueur player =
 	   let b = find_diction (String.trim (String.lowercase (List.nth args 0))) in
 	   if (!b) then
 	     begin
-		   let d = verify_trajectoire (String.trim (List.nth args 1)) in
+		  	 let d = verify_trajectoire (String.trim (List.nth args 1)) in
 	       if (!d) then
-		 begin
-			let c = find_in_enchere (player,String.trim (String.lowercase (List.nth args 0))) in
-		   if (!c) then
-         begin
-           update_score ((String.trim (List.nth args 0)),player);
-		       output_string player.outchan (valide (List.nth args 0));
-           flush player.outchan;
-           print_endline ("score"^string_of_int player.score)
-		     end
-		       
-		   else begin
-		       output_string player.outchan (invalide ((List.nth args 0),"PRIMotDejaPropose"));
-		       flush player.outchan
-		     end
-		 end
-		   
+					 begin
+							if(String.compare 
+							(String.trim (List.nth args 0))
+							(find_word_of_trajectoire 
+											((String.trim (List.nth args 1)),!tirage_matrix)) = 0)  then
+								begin
+									let c = find_in_enchere (player,String.trim (String.lowercase (List.nth args 0))) in
+									if (!c) then
+       			  			begin
+					           update_score ((String.trim (List.nth args 0)),player);
+							       output_string player.outchan (valide (List.nth args 0));
+					           flush player.outchan;
+					           print_endline ("score"^string_of_int player.score)
+									  end
+						 			else 
+										begin
+								       output_string player.outchan (invalide ((List.nth args 0),"PRIMotDejaPropose"));
+								       flush player.outchan
+								    end
+								end
+							else
+								begin
+							  output_string player.outchan (invalide ((List.nth args 0),"TrajectoireNeCorrespondPasAuMot"));
+		   			    flush player.outchan
+								end				
+		   	  end
 	       else begin
 		   output_string player.outchan (invalide ((List.nth args 0),"MauvaiseTrajectoire"));
 		   flush player.outchan
-		 end
-	     end
-	       
+		 			end  
+					end    
 	   else begin
 	       output_string player.outchan (invalide ((List.nth args 0),"MotInexistantDansLeDictio"));
 	       flush player.outchan
-	     end
-		  
+	     end 
+			
 		  
 		  
  	| 5 -> begin 

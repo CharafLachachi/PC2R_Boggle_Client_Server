@@ -92,6 +92,13 @@ public class SampleController implements Observer{
 	private Label timer;
     @FXML
 	private TextField username;
+    
+    @FXML 
+    private Label tricheText;
+    
+    @FXML
+	private Button tricheBtn;
+	@FXML
 
 
 	private Client client;
@@ -105,11 +112,12 @@ public class SampleController implements Observer{
 	private ObservableList<String> players = FXCollections.observableArrayList();
 	private ObservableList<Score> scores = FXCollections.observableArrayList();
 	private MyTimer myTimer;
+	private BoggleSolver solver;
 	
 	public void init() {
 		try {
-			//this.socket = new Socket("127.0.0.1", 2019);
-			this.socket = new Socket("132.227.112.132", 2016);
+			this.socket = new Socket("127.0.0.1", 2019);
+			//this.socket = new Socket("132.227.112.132", 2016);
 			letters = new char[4][4];
 			Platform.runLater(() -> valideWord.setItems(items));
 			Platform.runLater(() -> connectedPlayers.setItems(players));
@@ -118,6 +126,7 @@ public class SampleController implements Observer{
 			scoreColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("score"));
 			Platform.runLater(() -> scoreTable.setItems(scores));
 			myTimer = new MyTimer(3, this);
+			solver = new BoggleSolver();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -157,6 +166,7 @@ public class SampleController implements Observer{
 				tirage = tirage.substring(1, tirage.length());
 			}
 		}
+		solver.game(letters);
 		myTimer.restart();
 	}
 
@@ -219,6 +229,10 @@ public class SampleController implements Observer{
 	public void logOut(ActionEvent e) {
 		String req = new ClientRequest(CMDRequestEnum.SORT,Arrays.asList(this.client.getPseudo())).writeString();
 		this.traitementRequetes.sendToServer(req);
+	}
+	
+	public void tricher(ActionEvent e) {
+		tricheText.setText(solver.getSolution());
 	}
 	public void resetButtonStyle() {
 		A1.setStyle("-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);");
