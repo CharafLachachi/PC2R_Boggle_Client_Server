@@ -156,6 +156,7 @@ let find_diction word =
   res
 
 let find_in_enchere ((pla:joueur),word) =
+  Mutex.lock mutex_joueurL;
   let res = ref true in 
   List.iter (
       fun s ->  begin
@@ -166,6 +167,9 @@ let find_in_enchere ((pla:joueur),word) =
 		) s.reponses		    
 	    end
     ) !joueur_liste;
+    Mutex.unlock mutex_joueurL;
+
+  Mutex.lock mutex_joueurL;
   if(!res = true) then
     begin
       print_endline ("N'EXISTE PAS "^string_of_bool !res);
@@ -177,8 +181,9 @@ let find_in_enchere ((pla:joueur),word) =
 		       s.reponses  <- s.reponses@[word];
 		       print_endline (string_of_int (List.length s.reponses)^s.nom)
 		     end
-	) !joueur_liste      
+  ) !joueur_liste
     end ;
+    Mutex.unlock mutex_joueurL;
   print_endline "je suis a la fin";
   res
     
@@ -308,14 +313,12 @@ let invalide (word,raison) =
 let finreflexion () =
   "RFIN/\n"
 let connected_players () =
-	 Mutex.lock mutex_joueurL;
 	 let rec create l=
     match l with
       [] -> ""
     | h::t -> "/"^(String.trim h.nom)^(create t)
   in
   let x = create !joueur_liste in
-	Mutex.unlock mutex_joueurL;
 	"CONNEDTEDPLAYERS"^x^"\n"
     
 let vainqueur t =
@@ -324,10 +327,13 @@ let vainqueur t =
       [] -> ""
     | h::t -> (String.trim h.nom)^"*"^(string_of_int h.score)^"*"^(score t)
   in
+  Mutex.lock mutex_joueurL;
   let x = score !joueur_liste in
+  Mutex.unlock mutex_joueurL;
   "VAINQUEUR/"^(String.sub x 0 (String.length x -1))^"\n"
 						         
 let bilantour () = 
+  print_endline "je suis dans bilan";
   let rec create l=
     match l with
       [] -> ""
@@ -340,7 +346,6 @@ let bilantour () =
     | h::t -> (String.trim h.nom)^"*"^(string_of_int h.score)^"*"^(score t)
   in
   let y = score !joueur_liste in
-  
   print_endline x;
   "BILANMOTS/"^(String.sub x 0 (String.length x -1))^"/"^(string_of_int !tourNum)^"*"^(String.sub y 0 (String.length y -1))^"\n"
 

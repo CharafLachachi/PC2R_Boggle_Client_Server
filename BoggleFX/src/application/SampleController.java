@@ -115,7 +115,6 @@ public class SampleController implements Observer{
 	
 	public void init() {
 		try {
-			this.socket = new Socket("127.0.0.1", 2019);
 			//this.socket = new Socket("132.227.112.132", 2020);
 			letters = new char[4][4];
 			Platform.runLater(() -> valideWord.setItems(items));
@@ -127,7 +126,7 @@ public class SampleController implements Observer{
 			myTimer = new MyTimer(1, this);
 			solver = new BoggleSolver();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -137,6 +136,11 @@ public class SampleController implements Observer{
         Platform.runLater(() -> timer.setText((String) arg));
     }
 	public void connect(String username) {
+		try {
+			this.socket = new Socket("127.0.0.1", 2019);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		client = new Client(this.socket, username.toUpperCase());
 		client.start();
 		traitementReponse = new TraitementReponse(client.getReader(), this);
