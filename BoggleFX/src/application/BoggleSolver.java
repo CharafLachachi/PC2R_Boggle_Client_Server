@@ -15,7 +15,7 @@ public class BoggleSolver {
 	public BoggleSolver() {
 		dictionary = new HashSet<String>();
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("/users/nfs/Etu7/3702337/git/Boggle/BoggleFX/Server/dictionnaire.dat")));
+			BufferedReader br = new BufferedReader(new FileReader(new File("C:\\Users\\Usuario\\git\\PC2R_Boggle_Client_Server\\BoggleFX\\Server\\dictionnaire.dat")));
 			String word;
 			while ((word = br.readLine()) != null)
 				dictionary.add(word.toUpperCase());

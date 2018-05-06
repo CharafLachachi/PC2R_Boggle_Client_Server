@@ -24,6 +24,8 @@ import javafx.scene.layout.GridPane;
 
 public class SampleController implements Observer{
 
+	@FXML 
+	private TextArea csArea;
 	@FXML
 	private GridPane boggleGrid;
 	@FXML
@@ -137,7 +139,7 @@ public class SampleController implements Observer{
     }
 	public void connect(String username) {
 		try {
-			this.socket = new Socket("127.0.0.1", 2019);
+			this.socket = new Socket("192.168.210.110", 2018);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -179,6 +181,7 @@ public class SampleController implements Observer{
 
 	public void sendChatMessage(ActionEvent e) {
 		traitementRequetes.sendMessage(chatMessage.getText());
+		csArea.appendText("C -> S :"+chatMessage.getText() +"\n");
 		chatBox.appendText("YOU :" + chatMessage.getText() + "\n");
 		chatMessage.clear();
 	}
@@ -221,6 +224,7 @@ public class SampleController implements Observer{
 
 	public void submitBoggleWord(ActionEvent e) {
 		traitementRequetes.sendWord(word + "/" + trajectoire);
+		csArea.appendText("C -> S :"+word + "/" + trajectoire +"\n");
 		System.err.println(word);
 		System.err.println(trajectoire);
 		trajectoire = "";
@@ -241,12 +245,17 @@ public class SampleController implements Observer{
 	public void logOut(ActionEvent e) {
 		String req = new ClientRequest(CMDRequestEnum.SORT,Arrays.asList(this.client.getPseudo())).writeString();
 		this.traitementRequetes.sendToServer(req);
+		csArea.appendText("C -> S :"+req+"\n");
 		traitementReponse.interrupt();
 		
 	}
 	
 	public void tricher(ActionEvent e) {
 		tricheText.setText(solver.getSolution());
+	}
+	
+	public void addMessage(String text) {
+		csArea.appendText(text);
 	}
 	public void resetButtonStyle() {
 		A1.setStyle("-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);");

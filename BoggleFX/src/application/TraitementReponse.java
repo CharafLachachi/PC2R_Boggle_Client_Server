@@ -27,6 +27,7 @@ public class TraitementReponse extends Thread{
 		String ret;
 		try {
 				ret = inchan.readLine();
+				Platform.runLater(()->gui.addMessage("S -> C : " + ret + "\n"));
 				System.out.println("S -> C : " + ret);
 				String cmd = ret.split("/")[0];
 				String[] args = ret.split("/");
