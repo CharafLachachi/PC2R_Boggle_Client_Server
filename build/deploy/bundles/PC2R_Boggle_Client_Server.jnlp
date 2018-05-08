@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="PC2R_Boggle_Client_Server.jnlp">
+  <information>
+    <title>PC2R_Boggle_Client_Server</title>
+    <vendor>Charaf.Lachachi</vendor>
+    <description>BoggleClient</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="PC2R_Boggle_Client_Server.jar" size="859361" download="eager" />
+    <jar href="libs\jfoenix-8.0.1.jar" size="2405715" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="application.Main"  name="BoggleClient" />
+  <update check="background"/>
+</jnlp>
