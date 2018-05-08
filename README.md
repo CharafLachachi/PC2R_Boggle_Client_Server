@@ -2,11 +2,11 @@
 
 ## Dossiers
 - BoggleFx client desktop réalisé en JavaFx
-- server serveur multijoueurs réalisé en OCAML
+- Server serveur multijoueurs réalisé en OCAML
 - WebClient client web réalisé en NodeJS
 
 ## Auteurs
-- BoggleFX et server [Charaf Lachachi](https://github.com/CharafLachachi)
+- BoggleFX et Server [Charaf Lachachi](https://github.com/CharafLachachi)
 - ClientWeb [Kaan Yagci](https://kaanyagci.com)
 
 ## Informations
