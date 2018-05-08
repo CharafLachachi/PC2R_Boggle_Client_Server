@@ -8,8 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PC2R_Boggle_Client_Server.jar" size="859544" download="eager" />
-    <jar href="libs\jfoenix-8.0.1.jar" size="2405715" download="eager" />
+    <jar href="PC2R_Boggle_Client_Server.jar" size="859508" download="eager" />
   </resources>
   <jfx:javafx-desc  width="0" height="0" main-class="application.Main"  name="BoggleClient" />
   <update check="background"/>

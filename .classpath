@@ -2,6 +2,5 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="BoggleFX/src"/>
-	<classpathentry kind="lib" path="C:/Users/Usuario/Downloads/jfoenix-8.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
