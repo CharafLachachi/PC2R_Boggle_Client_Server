@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -93,6 +95,10 @@ public class SampleController implements Observer{
 	private Label timer;
     @FXML
 	private TextField username;
+    @FXML
+	private TextField ipText;
+    @FXML
+	private TextField portText;
     
     @FXML 
     private Label tricheText;
@@ -114,6 +120,9 @@ public class SampleController implements Observer{
 	private ObservableList<Score> scores = FXCollections.observableArrayList();
 	private MyTimer myTimer;
 	private BoggleSolver solver;
+	private static int PORT = 2018;
+	private static String IP = "127.0.0.1";
+	private String messageReceiver = "All";
 	
 	public void init() {
 		try {
@@ -124,8 +133,20 @@ public class SampleController implements Observer{
 			tourColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("tour"));
 			userColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("name"));
 			scoreColumn.setCellValueFactory(new PropertyValueFactory<Score, String>("score"));
-			Platform.runLater(() -> scoreTable.setItems(scores));
-			myTimer = new MyTimer(1, this);
+			Platform.runLater(() -> {
+				players.add(messageReceiver);
+				scoreTable.setItems(scores);
+				portText.setText(String.valueOf(PORT));
+				ipText.setText(IP);
+				connectedPlayers.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+				    @Override
+				    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//				        System.out.println("ListView selection changed from oldValue = " 
+//				                + oldValue + " to newValue = " + newValue);
+				    	messageReceiver = newValue;
+				    }
+				});
+			});
 			solver = new BoggleSolver();
 
 		} catch (Exception e) {
@@ -139,7 +160,7 @@ public class SampleController implements Observer{
     }
 	public void connect(String username) {
 		try {
-			this.socket = new Socket("192.168.210.110", 2018);
+			this.socket = new Socket(IP, PORT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -161,7 +182,9 @@ public class SampleController implements Observer{
 		}
 		return null;
 	}
-
+	public void setTimer(int time) {
+		myTimer = new MyTimer(time, this);
+	}
 	public void setLetters(String tirage) {
 		System.out.println("controller " + tirage);
 		for (int i = 0; i < 4; i++) {
@@ -180,9 +203,16 @@ public class SampleController implements Observer{
 	}
 
 	public void sendChatMessage(ActionEvent e) {
+		if(messageReceiver.equals("All")) {
 		traitementRequetes.sendMessage(chatMessage.getText());
 		csArea.appendText("C -> S :"+chatMessage.getText() +"\n");
 		chatBox.appendText("YOU :" + chatMessage.getText() + "\n");
+		}
+		else {
+		traitementRequetes.sendPrivateMessage(chatMessage.getText(), messageReceiver);
+		csArea.appendText("C -> S :"+chatMessage.getText() +"\n");
+		chatBox.appendText("YOU to "+messageReceiver.toUpperCase()+" : " + chatMessage.getText() + "\n");
+		}
 		chatMessage.clear();
 	}
 
@@ -239,6 +269,10 @@ public class SampleController implements Observer{
 	}
 	
 	public void logIn(ActionEvent e) {
+		if (portText.getText().length() > 0 && ipText.getText().length() > 0) {
+		PORT = Integer.valueOf(portText.getText());
+		IP = ipText.getText();
+		}
 		connect(username.getText());
 		username.setEditable(false);
 	}
@@ -277,5 +311,12 @@ public class SampleController implements Observer{
 		D2.setStyle("-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);");
 		D3.setStyle("-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);");
 		D4.setStyle("-fx-background-color: #3c7fb1,linear-gradient(#fafdfe, #e8f5fc),linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);");
+	}
+	public void addConnectedPlayers(String[] args) {
+		for (int i = 1; i < args.length; i++) {
+			if (!args[i].toLowerCase().equals(username.getText().toLowerCase())) {
+				players.add(args[i]);
+			}
+		}
 	}
 }

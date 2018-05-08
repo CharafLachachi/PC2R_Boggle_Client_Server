@@ -32,8 +32,9 @@ public class TraitementReponse extends Thread{
 				String cmd = ret.split("/")[0];
 				String[] args = ret.split("/");
 				cmd = cmd.trim();
-				if (cmd.equals("BIENVENUE"))
-					System.out.println("j'ai re�u un bienvenue");
+				if (cmd.equals("BIENVENUE")) {
+					
+				}
 				else if (cmd.equals("SESSION"))
 					System.err.println();
 				else if (cmd.equals("TOUR") && args[1]!=null) {
@@ -57,11 +58,15 @@ public class TraitementReponse extends Thread{
 				else if (cmd.equals("RECEPTION")) {
 					Platform.runLater(() -> gui.receiveChatMessage("Public : " + args[1]));
 				} else if (cmd.equals("PRECEPTION")) {
-					Platform.runLater(() -> gui.receiveChatMessage(args[1]+" : " + args[2]));
+					Platform.runLater(() -> gui.receiveChatMessage(args[2]+" : " + args[1]));
 				} else if (cmd.equals("DECONNEXION")) {
 					Platform.runLater(() ->gui.removeConnectedPlayer(args[1]));
 				} else if (cmd.equals("MVALIDE")) {
 					Platform.runLater(()->gui.addValideWord(args[1]));
+				}else if (cmd.equals("CONNEDTEDPLAYERS")) {
+					Platform.runLater(()-> gui.addConnectedPlayers(args));
+				}else if (cmd.equals("TIMER")) {
+					Platform.runLater(()-> gui.setTimer(Integer.valueOf(args[1])/60));
 				}
 
 		} catch (Exception e) {

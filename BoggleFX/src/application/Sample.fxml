@@ -54,8 +54,8 @@
                <children>
                   <TextField fx:id="chatMessage" layoutX="-1.0" prefHeight="31.0" prefWidth="332.0" promptText="Your message" />
                   <Button fx:id="chatButton" layoutX="331.0" mnemonicParsing="false" onAction="#sendChatMessage" prefHeight="31.0" prefWidth="81.0" text="Send" />
-                  <ListView fx:id="connectedPlayers" layoutX="100.0" layoutY="73.0" prefHeight="279.0" prefWidth="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Label layoutX="132.0" layoutY="52.0" prefHeight="21.0" prefWidth="136.0" text="Connected players" />
+                  <ListView fx:id="connectedPlayers" layoutX="100.0" layoutY="69.0" maxHeight="247.0" maxWidth="412.0" minHeight="210.0" minWidth="412.0" prefHeight="210.0" prefWidth="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="69.0" />
+                  <Label layoutX="138.0" layoutY="41.0" prefHeight="21.0" prefWidth="136.0" text="Connected players" />
                   <Separator layoutY="38.0" prefHeight="3.0" prefWidth="412.0" />
                </children>
             </AnchorPane>
@@ -73,12 +73,8 @@
             </ButtonBar>
             <TextField fx:id="username" layoutX="700.0" layoutY="152.0" prefHeight="25.0" prefWidth="150.0" promptText="Your username" />
             <TextArea fx:id="csArea" layoutX="-3.0" prefHeight="200.0" prefWidth="614.0" promptText="Client-Server messages" />
-            
-                  <Label fx:id="timer" alignment="CENTER" layoutX="751.0" layoutY="55.0" prefHeight="45.0" prefWidth="199.0" text="Timer" textAlignment="CENTER" textFill="#16bcdd">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
+            <TextField fx:id="ipText" layoutX="700.0" layoutY="121.0" prefHeight="25.0" prefWidth="150.0" promptText="ip" />
+            <TextField fx:id="portText" layoutX="850.0" layoutY="121.0" prefHeight="31.0" prefWidth="75.0" promptText="port" />
          </children></Pane>
    </bottom>
    <center>
@@ -126,6 +122,12 @@
                   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#newWordReset" prefHeight="31.0" prefWidth="143.0" text="New Word" />
                   <Button fx:id="tricheBtn" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#tricher" prefHeight="31.0" prefWidth="143.0" text="Proposition" />
                   <Label fx:id="tricheText" alignment="CENTER" layoutX="183.0" layoutY="67.0" prefHeight="25.0" prefWidth="199.0" text="Cheat" textAlignment="CENTER" />
+                  
+                        <Label fx:id="timer" alignment="CENTER" layoutX="101.0" layoutY="107.0" prefHeight="45.0" prefWidth="199.0" text="Timer" textAlignment="CENTER" textFill="#16bcdd">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

@@ -18,6 +18,9 @@ public class TraitementRequetes {
 	public void sendMessage(String word) {
 		sendToServer("ENVOI/"+word);
 	}
+	public void sendPrivateMessage(String word,String user) {
+		sendToServer("PENVOI/"+user+"/"+word);
+	}
 	
 	public void sendToServer(String msg) {
 		if((msg != null) && !(msg.equals(""))) {
