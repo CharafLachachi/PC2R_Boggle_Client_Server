@@ -18,7 +18,7 @@ Pour lancer le server veuillez executer dans la racine du projet :
  ./serv.exe 
 ```
 ## Parametres
-Pour parametrer le serveur vous avez les quatres arguments suivant .
+Pour parametrer le serveur vous avez les quatres arguments suivant à mettre après ./serv.exe .
 ```
        ip     : pour l'adresse d'ecoute du serveur par defaut 127.0.0.1
        port   : pour le port d'ecoute du serveur par defaut 2018
