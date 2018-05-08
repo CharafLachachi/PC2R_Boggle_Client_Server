@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.List;
@@ -156,6 +157,9 @@ public class MainController implements Observer{
 				    }
 				});
 			});
+			// saye ,adir mathbelch 3aklek hadi erreur bizzare douk nzid nahbel m3ah , la senna
+			//InputStream  in = MainController.class.getResourceAsStream("dictionnaire.dat");
+			
 			solver = new BoggleSolver();
 
 		} catch (Exception e) {

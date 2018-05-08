@@ -27,7 +27,7 @@
 	
 		<mkdir dir="project" />
 		<copy todir="project">
-			<fileset dir="C:\Users\Usuario\git\PC2R_Boggle_Client_Server">
+			<fileset dir="E:\PC2R\PC2R_Boggle_Client_Server">
 				<include name="BoggleFX\src/**" />
 			</fileset>
 		</copy>
@@ -95,6 +95,7 @@
 		<fx:application id="fxApplication"
 			name="BoggleClient"
 			mainClass="application.Main"
+			toolkit="fx"
 		/>
 	
 		<mkdir dir="build/classes/META-INF" />

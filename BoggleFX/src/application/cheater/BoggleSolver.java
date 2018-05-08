@@ -1,32 +1,49 @@
 package application.cheater;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 public class BoggleSolver {
 	private Set<String> dictionary;
 	private List<String> solutions;
 	public BoggleSolver() {
 		dictionary = new HashSet<String>();
-			try {
-				Path path = Paths.get(getClass().getResource("dictionnaire.dat").toURI());
-				Stream<String> lines = Files.lines(path);
-			    lines.forEach(line -> dictionary.add(line.toUpperCase()));
-			    lines.close();
-			} catch (URISyntaxException | IOException e) {
-				e.printStackTrace();
-			}		
+		try {
+
+			InputStream  in = BoggleSolver.class.getResourceAsStream("dictionnaire.dat");
+			readFromInputStream(in);// marahch yseb fichier, oui je vois , kan nsayi ndir had projet andi f pc ? yatla3 ? oui, envois le bih b mafih ok douk nzidek f git wasm pseudo ta3ak nadirbelarouci c bn ?
+			// vas y essay
+			} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		solutions = new ArrayList<>();
 		
 	}
+	private void readFromInputStream(InputStream inputStream)
+			  throws IOException {
+			    try (BufferedReader br
+			      = new BufferedReader(new InputStreamReader(inputStream))) {
+			        String line;
+			        while ((line = br.readLine()) != null) {
+			        	dictionary.add(line.toUpperCase());
+			        }
+			    }
+			}
 	public void game(char board[][]) {
 		
 		boolean visited[][] = new boolean[board.length][board[0].length];
