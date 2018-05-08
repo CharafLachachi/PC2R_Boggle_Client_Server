@@ -1,0 +1,7 @@
+client/middleware/node_modules
+client/middleware/node_modules/**/*
+client/ui/node_modules
+client/ui/node_modules/**/*
+server/*.cmi
+server/*.cmo
+server/server

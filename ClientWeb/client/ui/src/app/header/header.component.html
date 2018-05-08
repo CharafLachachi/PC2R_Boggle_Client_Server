@@ -1,0 +1,18 @@
+<div class="header-section">
+    <div class="header-container w-container">
+        <div class="home-icon w-inline-block"><img src="images/bold-text.svg" width="32"></div>
+        <div class="utils">
+            <div class="counter" matTooltip="Le temps restant pour ce tour">
+                <div class="text-block-2">{{ remainingTime | minuteseconds}}</div>
+                <mat-progress-bar mode="determinate" [value]="timer"></mat-progress-bar>
+            </div>
+            <div class="menu">
+                <div class="text-block-3" matTooltip="Afficher le journal du jeu">Journal</div>
+            </div>
+            <div class="profil"><img [src]='"https://identicon-api.herokuapp.com/" + username + "/32?format=png"' width="32" class="user-pp">
+                <div class="username">{{ username }}</div>
+            </div>
+            <div class="login-logout"><a href="#" class="link" matTooltip="Déconnecter de jeu" (click)="disconnect()">Déconnexion</a></div>
+        </div>
+    </div>
+</div>

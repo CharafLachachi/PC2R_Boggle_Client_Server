@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Bonjour 👋</h1>
+<div mat-dialog-content>
+    <p>Pour jouer, veuillez choisir un nom d'utilisateur qui contient au moins 4 caractères.</p>
+    <mat-form-field>
+        <input matInput placeholder="Votre nom d'utilisateur" [(ngModel)]="username">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button matTooltip="Génèrer un nom d'utilisateur pour moi" matTooltipPosition="left" (click)="random()">J'ai de la chance</button>
+    <button mat-button cdkFocusInitial matTooltip="Commencer à jouer" matTooltipPosition="right" [mat-dialog-close]="username" [disabled]="username.length<=3">Que le jeu commence</button>
+</div>

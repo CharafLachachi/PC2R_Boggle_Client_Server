@@ -1,0 +1,64 @@
+<div class="session-information-container">
+    <h3 class="heading">Mots proposés</h3>
+    <div class="word-list">
+        <ul class="words w-list-unstyled">
+            <li class="word" *ngFor="let word of wordList" [matTooltip]="(word.raison)?word.raison:'Le mot ' + word.word + 'est valide'" [style.color]="(word.status === 'invalide')?'#C53232':'#87BF87'">
+
+
+
+                <div class="word-text">{{word.word}}</div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h3 class="heading">Score-board</h3>
+        <div class="user-score-list">
+            <ul class="user-scores w-list-unstyled">
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+                <li class="user-score">
+                    <div class="username">Misteryagci</div>
+                    <div class="score">100</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

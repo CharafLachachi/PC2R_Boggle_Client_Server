@@ -1,0 +1,23 @@
+<div class="main-section">
+    <div class="main-section-container w-container">
+        <app-chat></app-chat>
+        <div class="game-container">
+            <div *ngIf="gLoaded" class="grille">
+                <div class="grille-line" *ngFor="let gline of grille">
+                    <div [class]="gcase.selected?'grille-case-selected':'grille-case'" *ngFor="let gcase of gline" (click)="select(gcase)">
+                        <div class="grille-letter" [class]="gcase.position">{{ gcase.lettre }}</div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!gLoaded" class="grille grille-case">
+                <img src="assets/oval.svg" alt="">
+            </div>
+            <div class="mot-container">
+                <div><strong>Mot</strong></div>
+                <div class="text-block">{{ returnMot() }}</div>
+                <a href="#" (click)="sendWord()" *ngIf="returnMot().length>0" class="send-button-container w-inline-block"><img src="images/ic_send_black_24px.svg"></a>
+            </div>
+        </div>
+        <app-session-information></app-session-information>
+    </div>
+</div>

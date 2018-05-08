@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "2018:2018/tcp"
+
+
+  middleware:
+    build: ./client/middleware
+    ports:
+      - "8746:8746"
+    links:
+      - server
+  
+  client:
+    build: ./client/ui
+    ports:
+      - "1997:1997"
+    links:
+      - middleware
+  
+  proxy:
+    build: ./proxy
+    ports:
+      - "1993:1993"
+    links:
+      - client

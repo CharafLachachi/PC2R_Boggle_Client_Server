@@ -1,0 +1,2 @@
+<app-header *ngIf="loaded" [username]="username" (disconnected)="disconnected($event)"></app-header>
+<app-game *ngIf="loaded"></app-game>

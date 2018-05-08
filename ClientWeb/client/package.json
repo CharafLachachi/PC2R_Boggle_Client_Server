@@ -1,0 +1,34 @@
+{
+    "name": "pc2r-client",
+    "version": "1.0.0",
+    "description": "Web client for PC2R project",
+    "main": "",
+    "scripts": {
+        "init": "cd ./ui && npm install && cd ../middleware && npm install && cd ../ui && ng build --aot && cd ..",
+        "server": "cd ./middleware && npm start",
+        "build": "cd ./ui && ng build --aot && cd ..",
+        "start": "cd ./ui && ng build --aot && cd ../middleware && pwd && node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Misteryagci/bug-free-pancake.git"
+    },
+    "keywords": [
+        "Angular",
+        "Express",
+        "TypeScript",
+        "ExpressJS",
+        "SocketIO",
+        "TCP"
+    ],
+    "author": "Kaan YAGCI <kaan@kaanyagci.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Misteryagci/bug-free-pancake/issues"
+    },
+    "homepage": "https://github.com/Misteryagci/bug-free-pancake#readme",
+    "dependencies": {
+        "@types/express": "^4.11.1"
+    }
+}

@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.rotate90 {
+    transform: rotate(90deg);
+    font-family: Montserrat, sans-serif;
+    font-size: 48px;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+    font-family: Montserrat, sans-serif;
+    font-size: 48px;
+}
+
+.rotate270 {
+    transform: rotate(270deg);
+    font-family: Montserrat, sans-serif;
+    font-size: 48px;
+}
+
+.rotate0 {
+    font-family: Montserrat, sans-serif;
+    font-size: 48px;
+}
