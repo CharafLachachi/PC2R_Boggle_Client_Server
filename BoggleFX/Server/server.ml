@@ -1,6 +1,7 @@
 
 (*ocamlc -o serv.exe -thread -custom unix.cma threads.cma -cclib -lthreads -cclib -lunix str.cma server.ml*)
 (*Variable Globales*)
+(***************TOPLEVEL DEBUT******************)
 let tr = ref "";;
 let tirage_matrix = ref (Array.make_matrix 4 4 "") ;;
 let dictionnaire = ref [] ;;
@@ -9,13 +10,16 @@ let tourN = ref 2;;
 let port = ref 2018;;
 let ip = ref "127.0.0.1";;
 let tour_time = ref 60;;
+(***************TOPLEVEL FIN******************)
 
+(*******Methode pour parser les argument DEBUT********)
 let set_tour_limit tour = tourN := tour
 let set_port portv = port := portv
 let set_ip_adresse ipa = ip := ipa
 let set_tour_time duration = tour_time := duration
+(*******Methode pour parser les argument FIN********)
 
-
+(****Type et methode pour CELL de la grille DEBUT***)
 type cell = {
   id : string;
   n : string;
@@ -63,9 +67,9 @@ let fill_cell () =
   cell_list := !cell_list@[creer_cell "D2" "C2" "D3" "" "D1" "C3" "" "" "C1"];
   cell_list := !cell_list@[creer_cell "D3" "C3" "D4" "" "D2" "C4" "" "" "C2"];
   cell_list := !cell_list@[creer_cell "D4" "C4" "" "" "D3" "" "" "" "C3"];
+(****Type et methode pour CELL de la grille FIN***)
 
-
-
+(********Type et methode pour joueur DDEBUT*******)
 (*Type contenant les informations d'un joueur*)
 type joueur = {
   nom: string;
@@ -104,6 +108,7 @@ mutex_joueurL = Mutex.create ()
 let phase =ref 0 (*0: hors session, 1: recherche, 2: verification, 3: resultat *)
 and tourNum = ref 0
 and mutex_phase = Mutex.create ()
+(********Type et methode pour joueur DDEBUT*******)
 
 (***************JOURNAL DEBUT******************)
 
@@ -172,7 +177,7 @@ let jrnl = open_out "journal.json" in
 
 (***************JOURNAL FIN******************)
 
-(*DICTIONNAIRE*)
+(***************DICTIONNAIRE DEBUT******************)
 			       
 let read_file filename = 
   let lines = ref [] in
@@ -199,8 +204,8 @@ let read_diction filename =
     print_endline "LECTURE DU DICTIONNAIRE TERMINE";
     close_in chan;
     List.rev !dictionnaire
-(*DES*)
-
+(***************DICTIONNAIRE FIN******************)
+(***************Methode pour gérer la génartion des tirage DEBUT ******************)
 let des () = 
 
   let matrice = Array.make_matrix 4 4 "" and
@@ -228,7 +233,7 @@ let des () =
      tab_string := !tab_string ^ "\n";
 
      !tab_string
-  
+ (***************Methode pour gérer la génartion des tirage FIN ******************)
 
 (*VERIFIER SI LE MOT EST PRESENT DANS LE DICT*)	     
 let find_diction word =
@@ -238,7 +243,7 @@ let find_diction word =
   List.iter (fun s -> if ((String.compare s word) = 0) then begin print_endline s; res := true end ) !dictionnaire;
 (*  print_endline "FIN RECHERCHE DICT";*)
   res
-
+(*VERIFIER SI LE MOT EST DEJA PROPOSE PAR UN AUTRE JOUEUR*)	 
 let find_in_enchere ((pla:joueur),word) =
   Mutex.lock mutex_joueurL;
   let res = ref true in 
@@ -271,7 +276,7 @@ let find_in_enchere ((pla:joueur),word) =
   print_endline "je suis a la fin";
   res
     
-(*VERIFIER LA TRAJECTOIRE DU MOT*)
+(*VERIFIER LA TRAJECTOIRE DU MOT PROPOSE PAR LE JOUEUR*)
 let verify_trajectoire word =
  (* print_endline ("trajectoire "^word^"DE TAILLE "^(string_of_int (String.length word)));*)
   let res = ref true in
@@ -312,7 +317,7 @@ let verify_trajectoire word =
   done;
   res
   
- (*trouvé une lettre selon une case dans une matrice *)
+ (*RETOURNE LA CASE D'UNE LETTRE DONNÉE EN PARAMETRE*)
 let word_in_case case tab = 
   let lettre =  match case.[0] with
     'A' -> tab.(0).((int_of_string (String.make 1 case.[1])) - 1)
@@ -324,7 +329,7 @@ let word_in_case case tab =
   lettre;;
 
 
-(*pour trouver un mot selon sa trajctoire*)
+(*TROUVER LA TRAJECTOIRE DU MOT DONNÉE EN PARAMETRE*)
 let find_word_of_trajectoire (traj,tab) = 
   let i = ref 0 and mot = ref "" in
   if (String.length traj) mod 2 = 0 then  
@@ -335,11 +340,8 @@ let find_word_of_trajectoire (traj,tab) =
       done
   end;
     !mot;;
-		
 
-
-
-
+(*METTRE A JOUR LE SCORE DU JOUEUR SELON LA LONGEUR DU MOT*)	
 let update_score (word,player) = 
   if(String.length word) >= 8
     then player.score <- player.score + 11
@@ -353,8 +355,7 @@ let update_score (word,player) =
   else ()
 
     
-(*DISPATCH POUR LES REQUETTES RECU DES CLIENTS*)
-    
+(*DISPATCH POUR LES REQUETTES RECU DES CLIENTS*) 
 let received_request req =
   let splited = Str.split (Str.regexp "/") req in
   if (List.length splited) > 0 then
@@ -381,25 +382,33 @@ let connecte user =
 (*Signalement de la deconnexion de user aux autres clients*)
 let deconnexion user = 
   "DECONNEXION/" ^user^"\n"
+(*Reception d'un message public*)
 let message args =
   "RECEPTION/"^(List.nth args 0)^"\n"
+(*Reception d'un message prive*)
 let pmessage (args,user) =
   "PRECEPTION/"^(List.nth args 1)^"/"^(String.trim user)^"\n"
+(*Signalement d'une nouvelle session*)
 let session ()= 
   "SESSION/\n"
+(*Envoi du tour generé*)
 let tour t =
   "TOUR/"^t^"\n"
+(*Validation du mot*)
 let valide word =
   "MVALIDE/"^word^"\n"
+(*Signaler que le mot est invalide*)
 let invalide (word,raison) =
   "MINVALIDE/"^word^"/"^raison^"\n"
+(*Signalement de la fin de la phase de reflexion*)
 let finreflexion () =
   "RFIN/\n"
+(*Signalement de la duree de chaque tour*)
 let tour_duration () = 
  let func (play:joueur) = output_string play.outchan ("TIMER/"^(string_of_int !tour_time)^"\n"); flush play.outchan;
   print_endline play.nom in
   List.iter func !joueur_liste;;
-
+(*Signalement des joueurs deja connectes quand un nouveau joueur se connecte*)
 let connected_players () =
 	 let rec create l=
     match l with
@@ -408,7 +417,7 @@ let connected_players () =
   in
   let x = create !joueur_liste in
 	"CONNEDTEDPLAYERS"^x^"\n"
-    
+(*Signalement du vainqueur de la session*)
 let vainqueur t =
    let rec score l=
     match l with
@@ -417,7 +426,7 @@ let vainqueur t =
   in
   let x = score !joueur_liste in
   "VAINQUEUR/"^(String.sub x 0 (String.length x -1))^"\n"
-						         
+(*Envoi du bilan de chaque tour*)					         
 let bilantour () = 
   let rec create l=
     match l with
@@ -435,6 +444,8 @@ let bilantour () =
 
   "BILANMOTS/"^(String.sub x 0 (String.length x -1))^"/"^(string_of_int !tourNum)^"*"^(String.sub y 0 (String.length y -1))^"\n"
 
+
+(*METHODE DE GESTION DE LA FIN DE SESSION*)
 let rec fin_session () =
   if !phase = 0 then
     ()
@@ -452,7 +463,6 @@ let rec fin_session () =
 
 
 (* Fonction appelle lors d'un timeout de la phase de resolution du joueur actif *)
-
 and timeout_reflexion _ =
   Mutex.lock mutex_joueurL;
   Mutex.lock mutex_phase;
@@ -481,7 +491,7 @@ and timeout_reflexion _ =
   else ();
   Mutex.unlock mutex_phase;
   Mutex.unlock mutex_joueurL
-
+(*METHODE APPELE POUR COMMENCER UN TOUR*)
 and begin_reflexion () = 
   incr tourNum;
   print_endline "BEGIN REFLEXION";
@@ -587,7 +597,7 @@ let traitement_message (player:joueur) args =
   List.iter sendMessage !joueur_liste;
   Mutex.unlock mutex_joueurL;;
 
-(*Fonction de traitement de la requetes message pour le chat*)
+(*Fonction de traitement de la requetes message pour le chat PRIVE*)
 let traitement_messagei (player:joueur) args =
 	print_endline ("prive"^(List.nth args 0));
   let sendMessage (pla:joueur) =
@@ -711,12 +721,6 @@ let joueur_service sock=
       flush outchan;
       Unix.close sock
     end
-
-
-
-
- 
-
 
 let main ()=
   read_diction "dictionnaire.dat";
