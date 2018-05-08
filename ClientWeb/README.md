@@ -4,8 +4,6 @@ This project is a dockerized client server application which allows users to pla
 
 ## Authors
 
-[Charaf Lachachi](https://github.com/CharafLachachi)
-
 [Kaan Yagci](https://kaanyagci.com)
 
 ## Prerequisites
