@@ -157,8 +157,6 @@ public class MainController implements Observer{
 				    }
 				});
 			});
-			// saye ,adir mathbelch 3aklek hadi erreur bizzare douk nzid nahbel m3ah , la senna
-			//InputStream  in = MainController.class.getResourceAsStream("dictionnaire.dat");
 			
 			solver = new BoggleSolver();
 

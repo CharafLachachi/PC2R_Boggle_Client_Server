@@ -20,6 +20,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root,1024,768);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Boggle Client");
 			primaryStage.setOnCloseRequest(e->{
 				if(MainController.connected)
 				controller.logOut(new ActionEvent());

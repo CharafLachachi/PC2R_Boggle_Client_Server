@@ -555,6 +555,7 @@ let traitement_connecte (player:joueur) =
      else if !phase != 0 then begin
 			     print_endline "phase en cours";
 			     player.playing <- true;
+			     output_string player.outchan ("TIMER/"^(string_of_int !tour_time)^"\n");
   			     output_string player.outchan (tour !tr );
   			     flush player.outchan;
 							let x = connected_players () in
