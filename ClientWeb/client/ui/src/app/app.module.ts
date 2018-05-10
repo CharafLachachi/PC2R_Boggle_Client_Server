@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 import { AppComponent } from './app.component';
@@ -47,7 +48,8 @@ import { SessionInformationComponent } from './session-information/session-infor
     MatButtonModule,
     FormsModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatBadgeModule
   ],
   entryComponents: [
     LoginComponent,

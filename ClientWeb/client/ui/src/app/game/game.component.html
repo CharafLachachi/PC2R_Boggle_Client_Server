@@ -1,6 +1,6 @@
 <div class="main-section">
     <div class="main-section-container w-container">
-        <app-chat></app-chat>
+        <app-chat [selfUsername]="selfUsername"></app-chat>
         <div class="game-container">
             <div *ngIf="gLoaded" class="grille">
                 <div class="grille-line" *ngFor="let gline of grille">
@@ -15,7 +15,9 @@
             <div class="mot-container">
                 <div><strong>Mot</strong></div>
                 <div class="text-block">{{ returnMot() }}</div>
-                <a href="#" (click)="sendWord()" *ngIf="returnMot().length>0" class="send-button-container w-inline-block"><img src="images/ic_send_black_24px.svg"></a>
+                <a href="#" (click)="sendWord()" *ngIf="returnMot().length>0" class="send-button-container w-inline-block" style="color: #333" [matTooltip]="'Envoyer le mot '+ returnMot() +' au serveur'">
+                    <mat-icon>send</mat-icon>
+                </a>
             </div>
         </div>
         <app-session-information></app-session-information>

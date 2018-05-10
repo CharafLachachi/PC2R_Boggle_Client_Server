@@ -6,9 +6,9 @@
                 <div class="text-block-2">{{ remainingTime | minuteseconds}}</div>
                 <mat-progress-bar mode="determinate" [value]="timer"></mat-progress-bar>
             </div>
-            <div class="menu">
+            <!-- <div class="menu">
                 <div class="text-block-3" matTooltip="Afficher le journal du jeu">Journal</div>
-            </div>
+            </div> -->
             <div class="profil"><img [src]='"https://identicon-api.herokuapp.com/" + username + "/32?format=png"' width="32" class="user-pp">
                 <div class="username">{{ username }}</div>
             </div>

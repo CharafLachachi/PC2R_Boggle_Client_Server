@@ -1,7 +1,7 @@
 import { DisconnectComponent } from './disconnect/disconnect.component';
 import { LoginComponent } from './login/login.component';
 import { ConnexionService } from './connexion.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(public cs: ConnexionService,
               public dialog: MatDialog,
-            public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar) {
               this.loaded = false;
   }
 
@@ -28,6 +28,12 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.openDialog();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    this.cs.send('SORT/' + this.username);
+    console.log(`${this.username} is disconnected`);
   }
 
   openDialog(): void {

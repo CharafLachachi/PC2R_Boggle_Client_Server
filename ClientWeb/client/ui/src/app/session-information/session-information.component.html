@@ -14,49 +14,9 @@
         <h3 class="heading">Score-board</h3>
         <div class="user-score-list">
             <ul class="user-scores w-list-unstyled">
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
-                </li>
-                <li class="user-score">
-                    <div class="username">Misteryagci</div>
-                    <div class="score">100</div>
+                <li class="user-score" *ngFor="let uscore of scores">
+                    <div class="username">{{ uscore.username }}</div>
+                    <div class="score">{{ uscore.score }}</div>
                 </li>
             </ul>
         </div>

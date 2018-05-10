@@ -1,6 +1,6 @@
 import { MatSnackBar } from '@angular/material';
 import { ConnexionService } from './../connexion.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 interface GrilleCase {
   position: 'rotate0' | 'rotate90' | 'rotate180' | 'rotate270';
@@ -16,6 +16,7 @@ interface GrilleCase {
 })
 export class GameComponent implements OnInit {
 
+  @Input() selfUsername: String;
   public grille: GrilleCase[][];
   public gLoaded = false;
   public selectedM = new Array<{lettre: string, trajectoire: string}>();

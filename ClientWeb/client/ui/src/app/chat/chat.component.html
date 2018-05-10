@@ -2,137 +2,11 @@
     <h3 class="heading">Utilisateurs dans la partie</h3>
     <div class="player-list">
         <ul class="players w-list-unstyled">
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
-                </a>
-            </li>
-            <li class="player">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-                <div class="username">Misteryagci</div>
-                <a href="#" class="w-inline-block">
-                    <img src="images/ic_email_black_24px.svg">
+            <li class="player" *ngFor="let user of connectedUsers">
+                <img [src]='"https://identicon-api.herokuapp.com/" + user.username + "/32?format=png"' width="32" class="user-pp">
+                <div class="username">{{ user.username }} {{ (user.username === selfUsername) ? "(Moi)" : ""}}</div>
+                <a *ngIf="selfUsername !== user.username" href="#" class="w-inline-block" [matTooltip]="'Envoyer un message privé à ' + user.username" style="color: #333" (click)="createChatRoom(user)">
+                    <mat-icon>mail</mat-icon>
                 </a>
             </li>
         </ul>
@@ -142,32 +16,11 @@
     </div>
     <div class="chat">
         <div class="chatrooms-container">
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/ic_device_hub_black_24px.svg" width="32" class="user-pp selected">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
-            </a>
-            <a href="#" class="user-pp-container w-inline-block">
-                <img src="images/identiconMrY.png" width="32" class="user-pp">
+            <a href="#" [matBadge]="cr.unreadCounter" [matBadgeHidden]="isBadgeHidden(cr)" matBadgePosition="below after" class="user-pp-container w-inline-block" *ngFor="let cr of chatRooms" (click)="selectChatRoom(cr)" style="color: #333">
+
+
+                <mat-icon *ngIf="cr.name === 'General'" [ngClass]="getChatRoomClass(cr)" matTooltip="Conversation générale">device_hub</mat-icon>
+                <img *ngIf="cr.name !== 'General'" [src]='"https://identicon-api.herokuapp.com/" + cr.name + "/32?format=png"' width="32" [ngClass]="getChatRoomClass(cr)">
             </a>
         </div>
 
@@ -176,85 +29,13 @@
             <div class="messages-container">
                 <ul class="unordered-list w-list-unstyled">
                     <li>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
+                        <div [ngClass]="getMessageClass(message)" *ngFor="let message of getSelectedRoomMessages()">
+                            <img [src]='"https://identicon-api.herokuapp.com/" + message.username + "/32?format=png"' width="32" class="user-pp">
                             <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
+                                <div class="message-text-text">{{ message.content }}</div>
                             </div>
                             <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="my-message-line">
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                            <div class="message-text">
-                                <div class="my-message-text-text">Hello world!</div>
-                            </div>
-                            <img src="images/identicon.png" width="32" class="user-pp">
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
-                            </div>
-                        </div>
-                        <div class="others-message-line">
-                            <img src="images/identiconMrY.png" width="32" class="user-pp">
-                            <div class="message-text">
-                                <div class="message-text-text">Hello world!</div>
-                            </div>
-                            <div class="message-date">
-                                <div class="time-text">01:50</div>
+                                <div class="time-text">{{ message.send_date | date:'yyyy-MM-dd HH:mm' }}</div>
                             </div>
                         </div>
                     </li>
@@ -263,10 +44,10 @@
             <div class="send-message">
                 <div class="form-block w-form">
                     <mat-form-field>
-                        <input matInput placeholder="Exprimez vous" type="text" class="text-field-2 w-input" maxlength="256" name="name" data-name="Name" id="name">
+                        <input matInput placeholder="Exprimez vous" type="text" class="text-field-2 w-input" maxlength="256" name="name" data-name="Name" id="name" [(ngModel)]="userMessage">
                     </mat-form-field>
-                    <button mat-icon-button (click)="sendMessage()">
-          <mat-icon aria-label="Example icon-button with a heart icon" matTooltip="Envoyer votre message">send</mat-icon>
+                    <button *ngIf="userMessage.length>0" mat-icon-button (click)="sendMessage()" [matTooltip]="'Envoyer votre message à' + getChatRoomName()">
+          <mat-icon aria-label="Example icon-button with a heart icon" >send</mat-icon>
         </button>
                 </div>
             </div>

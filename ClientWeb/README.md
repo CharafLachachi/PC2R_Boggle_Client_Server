@@ -4,7 +4,9 @@ This project is a dockerized client server application which allows users to pla
 
 ## Authors
 
-[Kaan Yagci](https://kaanyagci.com)
+[Charaf Lachachi](https://github.com/CharafLachachi) - Server written in OCaml
+
+[Kaan Yagci](https://kaanyagci.com) - Front-end (UI written in Angular 6), Middleware (an ExpressJS HTTP server written in TypeScript, lets the Angular UI to a TCP server via web sockets. And handles some cases which were not handled by server), Dockerization (Which lets this application easy to use).
 
 ## Prerequisites
 

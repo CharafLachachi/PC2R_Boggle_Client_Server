@@ -3,13 +3,14 @@
 (*ocamlc -o serv.exe -thread -custom unix.cma threads.cma -cclib -lthreads -cclib -lunix str.cma server.ml*)
 
 (*Variable Globales*)
+(***************TOPLEVEL DEBUT******************)
 
 let tr = ref "";;
 
 let tirage_matrix = ref (Array.make_matrix 4 4 "") ;;
 
 let dictionnaire = ref [] ;;
-
+let journal = ref [] ;;
 let tourN = ref 2;;
 
 let port = ref 2018;;
@@ -17,7 +18,9 @@ let port = ref 2018;;
 let ip = ref "0.0.0.0";;
 
 let tour_time = ref 60;;
+(***************TOPLEVEL FIN******************)
 
+(*******Methode pour parser les argument DEBUT********)
 
 
 let set_tour_limit tour = tourN := tour
@@ -27,6 +30,9 @@ let set_port portv = port := portv
 let set_ip_adresse ipa = ip := ipa
 
 let set_tour_time duration = tour_time := duration
+(*******Methode pour parser les argument FIN********)
+
+(****Type et methode pour CELL de la grille DEBUT***)
 
 
 
@@ -125,7 +131,9 @@ let fill_cell () =
   cell_list := !cell_list@[creer_cell "D3" "C3" "D4" "" "D2" "C4" "" "" "C2"];
 
   cell_list := !cell_list@[creer_cell "D4" "C4" "" "" "D3" "" "" "" "C3"];
+(****Type et methode pour CELL de la grille FIN***)
 
+(********Type et methode pour joueur DDEBUT*******)
 
 
 (*Type contenant les informations d'un joueur*)
@@ -205,10 +213,78 @@ let phase =ref 0 (*0: hors session, 1: recherche, 2: verification, 3: resultat *
 and tourNum = ref 0
 
 and mutex_phase = Mutex.create ()
+(********Type et methode pour joueur DDEBUT*******)
 
+(***************JOURNAL DEBUT******************)
+
+let string_of_month = function
+  0 -> "janvier"
+| 1 -> "f�vrier"
+| 2 -> "mars"
+| 3 -> "avril"
+| 4 -> "mai"
+| 5 -> "juin"
+| 6 -> "juillet"
+| 7 -> "ao�t"
+| 8 -> "septembre"
+| 9 -> "octobre"
+| 10 -> "novembre"
+| 11 -> "d�cembre"
+| _ -> assert false (* on ne doit pas avoir une autre valeur *)
+;;
 
 
 (*DICTIONNAIRE*)
+let date_string_of_tm tm =
+  Printf.sprintf "%d %s %d %d %d"
+    tm.Unix.tm_mday
+    (string_of_month tm.Unix.tm_mon)
+    (1900 + tm.Unix.tm_year)
+    (tm.Unix.tm_hour)
+    (tm.Unix.tm_min)
+;;
+
+let write_to_journal (user,score,tour) =
+print_endline ("called "^user);
+let date = Unix.gmtime(Unix.time ()) in
+let f = ref "" in
+ let print_line line = 
+        f := !f^line^"\n";
+	print_endline ""
+	in
+	List.iter print_line !journal;
+let req = "
+		{\n"^"\"username\":"^"\""^user^"\",\n"
+		^"\"score\":"^"\""^score^"\",\n"
+		^"\"date\":"^"\""^(date_string_of_tm date)^"\",\n"
+		^"\"tour\":"^"\""^(String.trim tour)^"\"\n
+		}\n" 
+in 
+let jrnl = open_out "journal.json" in
+			begin
+			print_endline (string_of_int (String.length !f));
+			if ((String.length (String.trim !f)) > 2) then
+				begin
+				journal:= !journal@[","^req];
+				print_endline ("journal "^(!f));
+				print_endline ("reque "^","^req);
+				output_string jrnl (!f^","^req^"\n]");
+				flush jrnl
+				end
+			else 
+				begin
+				journal:= !journal@[req];
+				print_endline ("journal "^(!f));
+				print_endline ("reque "^req);
+				output_string jrnl (!f^req^"\n]");
+				flush jrnl 
+				end
+			end
+
+(***************JOURNAL FIN******************)
+
+(***************DICTIONNAIRE DEBUT******************)
+			       
 
 
 
@@ -221,9 +297,11 @@ let read_file filename =
   try
 
     while true; do
-
-      lines := input_line chan :: !lines
-
+begin
+	let l = input_line chan in
+	if ( (String.compare (String.trim l)  "]") <> 0) then
+      		lines := l:: !lines
+	end
     done; !lines
 
   with End_of_file ->
@@ -254,7 +332,8 @@ let read_diction filename =
 
     List.rev !dictionnaire
 
-(*DES*)
+(***************DICTIONNAIRE FIN******************)
+(***************Methode pour g�rer la g�nartion des tirage DEBUT ******************)
 
 
 
@@ -312,6 +391,7 @@ let des () =
 
      !tab_string
 
+(***************Methode pour g�rer la g�nartion des tirage FIN ******************)
 
 
 
@@ -332,6 +412,7 @@ let find_diction word =
 
   res
 
+(*VERIFIER SI LE MOT EST DEJA PROPOSE PAR UN AUTRE JOUEUR*)	 
 
 
 let find_in_enchere ((pla:joueur),word) =
@@ -396,6 +477,7 @@ let find_in_enchere ((pla:joueur),word) =
 
   res
 
+(*VERIFIER LA TRAJECTOIRE DU MOT PROPOSE PAR LE JOUEUR*)
 
 
 (*VERIFIER LA TRAJECTOIRE DU MOT*)
@@ -478,6 +560,7 @@ let verify_trajectoire word =
 
   res
 
+(*RETOURNE LA CASE D'UNE LETTRE DONN�E EN PARAMETRE*)
 
 
  (*trouvé une lettre selon une case dans une matrice *)
@@ -502,6 +585,7 @@ let word_in_case case tab =
 
 
 
+(*TROUVER LA TRAJECTOIRE DU MOT DONN�E EN PARAMETRE*)
 
 
 (*pour trouver un mot selon sa trajctoire*)
@@ -528,6 +612,7 @@ let find_word_of_trajectoire (traj,tab) =
 
 
 
+(*METTRE A JOUR LE SCORE DU JOUEUR SELON LA LONGEUR DU MOT*)	
 
 
 
@@ -740,7 +825,7 @@ let rec fin_session () =
 
   List.iter ite !joueur_liste;
 
-  if !nbJoueur > 1 then
+if !nbJoueur > 0 then
 
     debut_session ()
 
@@ -779,6 +864,7 @@ and timeout_reflexion _ =
           print_endline x;
 
           output_string play.outchan (x);
+write_to_journal (String.trim play.nom,string_of_int play.score,!tr);
 
           flush play.outchan in
 
@@ -939,6 +1025,7 @@ let traitement_connecte (player:joueur) =
 			     print_endline "phase en cours";
 
 			     player.playing <- true;
+output_string player.outchan ("TIMER/"^(string_of_int !tour_time)^"\n");
 
   			     output_string player.outchan (tour !tr );
 
@@ -1279,6 +1366,7 @@ let main ()=
   read_diction "dictionnaire.dat";
 
   fill_cell () ;
+journal := read_file "journal.json";
 
   let arg_parser =  [("-tours", Arg.Int (set_tour_limit), "Nombre de tours par session");
 
@@ -1286,7 +1374,7 @@ let main ()=
 
 ("-ip", Arg.String (set_ip_adresse), "Adresse ip d'ecoute");
 
-("-dur", Arg.Int (set_tour_time), "Duree d'un tour en (ms)");
+("-dur", Arg.Int (set_tour_time), "Duree d'un tour en (s)");
 
 ]
 
