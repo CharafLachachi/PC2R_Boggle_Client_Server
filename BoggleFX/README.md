@@ -18,9 +18,12 @@ Pour lancer le client :
 
 <details>
   <summary>
-     <strong>Défiler</strong>:
+     <strong>Bon jeu </strong>:
   </summary>
   <ul>
+		  <img src="https://user-images.githubusercontent.com/13594921/39891402-c478b9fa-549d-11e8-9b9b-cf5e9eb02b47.png"/>
+
+	  
    <li>
     	ZONE 1 : lors de l’ouverture de l’application, la première chose à faire est d’introduire l’adresse IP du serveur et le port d’écoute, ces derniers par défaut sont à 127.0.0.1 :2018, et aussi le pseudo du joueur. Une fois le bouton « LogIn » appuyé l’application se connecte au serveur. Pour se déconnecter le bouton « LogOut » permet d’envoyer le message « SORT/user ».
    </li>
