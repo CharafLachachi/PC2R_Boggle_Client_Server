@@ -28,6 +28,9 @@ Pour parametrer le serveur vous avez les quatres arguments suivant à mettre apr
 ## Journalisation
 ```
 
-Pour ce qui de la journalisation des scores de toutes les parties sur une page web, vous trouverez sur le dossier (Server) une page « Journal.html » à lancer sur un navigateur autre que « Google Chrome » qui interdit l’utilisation d’un fichier local qui n’est pas dans un server web.
+Pour ce qui de la journalisation des scores de toutes les parties sur une page web, 
+vous trouverez sur le dossier (Server) une page « Journal.html » à lancer sur un navigateur 
+autre que « Google Chrome » qui interdit l’utilisation d’un fichier local 
+qui n’est pas dans un server web.
 
 ```
